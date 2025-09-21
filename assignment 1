@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+// Insert at beginning
+struct node* insertbeg(struct node *head, int value) {
+    struct node *newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = value;
+    newnode->next = head;
+    return newnode;   // return new head
+}
+
+// Delete from beginning
+struct node* deletebeg(struct node *head) {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return NULL;
+    }
+    struct node *temp = head;
+    head = head->next;
+    free(temp);
+    return head;   // return new head
+}
+
+// Print the list
+void printlist(struct node *head) {
+    struct node *temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct node *head = NULL;
+
+    head = insertbeg(head, 10);
+    head = insertbeg(head, 20);
+    head = insertbeg(head, 30);
+
+    printf("Original List: ");
+    printlist(head);
+
+    head = deletebeg(head);
+
+    printf("After deleting first node: ");
+    printlist(head);
+
+    return 0;
+}
